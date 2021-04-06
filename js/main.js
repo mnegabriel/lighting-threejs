@@ -3,4 +3,10 @@ import HelperLog from "./classes/HelperLog.js";
 
 window.helperLog = new HelperLog("Lighting - threejs");
 
-new App();
+const app = new App();
+
+function animate(timeElapsed) {
+	app._animate();
+	requestAnimationFrame(animate);
+}
+animate();
