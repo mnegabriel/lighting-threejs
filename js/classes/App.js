@@ -33,11 +33,20 @@ export default class {
 		const groundPlane = new SetterOfPlane().mesh;
 		const cube = new SetterOfCube().mesh;
 		const sphere = new SetterOfSphere().mesh;
-		
-		const color = 0xFFFFFF;
+
+		// AMBIENT LIGHT
+		//
+		// const color = 0xFFFFFF;
+		// const intensity = 1;
+		// const light = new THREE.AmbientLight(color, intensity);
+
+		// HEMISPHERE LIGHT
+		//
+		const skyColor = 0xb1e1ff;
+		const groundColor = 0xb97a20;
 		const intensity = 1;
-		const light = new THREE.AmbientLight(color, intensity);
-		
+		const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+
 		this.objects = { groundPlane, cube, sphere, light };
 	}
 	
@@ -81,9 +90,22 @@ export default class {
 	}
 
 	_setAndConfigureGUI() {
-		this.gui = new GUI()
-		this.gui.addColor(new HelperColorGUI(this.objects.light, 'color'), 'value').name('color')
-		this.gui.add(this.objects.light, 'intensity', 0, 2, .01)
+		this.gui = new GUI();
+
+		// AMBIENT LIGHT
+		//
+		// this.gui.addColor(new HelperColorGUI(this.objects.light, 'color'), 'value').name('color')
+
+		// HEMISPHERE LIGHT
+		//
+		this.gui
+			.addColor(new HelperColorGUI(this.objects.light, "color"), "value")
+			.name("skyColor");
+		this.gui
+			.addColor(new HelperColorGUI(this.objects.light, "groundColor"), "value")
+			.name("groundColor");
+
+		this.gui.add(this.objects.light, "intensity", 0, 2, 0.01);
 	}
 
 	_triggerAnimation() {
