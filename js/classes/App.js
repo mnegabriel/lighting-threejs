@@ -18,11 +18,10 @@ export default class {
 		this._createElementsObject();
 		this._positionAndRotateElements();
 		this._addElementsToWorld();
+
 		this._setOrbitController();
 
-		// window.world = this.world
-
-		// this._animate()
+		this._triggerAnimation();
 	}
 
 	_createElementsObject() {
@@ -71,12 +70,12 @@ export default class {
 		this.controls.update();
 	}
 
-	_animate(time) {
-		this.world.renderer.render(
-			this.world.scene,
-			this.world.camera
-		)
-		time % 3000 === 0 && console.log({time})
-		// window.requestAnimationFrame(() => this._animate)
+	_triggerAnimation() {
+		const animate = time => {
+			this.world.renderer.render(this.world.scene, this.world.camera);
+			requestAnimationFrame(animate);
+		};
+
+		animate();
 	}
 }
